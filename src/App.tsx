@@ -1,10 +1,27 @@
-import React from 'react';
-import './App.css';
+import React, { useState } from 'react';
+import { Todo } from './models/todo';
 
-function App() {
+import InputField from './components/InputField';
+import TodoList from './components/TodoList';
+
+const App: React.FC = () => {
+
+  const [todo, setTodo] = useState<string>("");
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  const handleAdd = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (todo) {
+      setTodos([...todos, {id: Date.now(), todo, isDone: false}]);
+      setTodo('');
+    }
+  }
+
   return (
-    <div className="App">
-      Hello World;
+    <div>
+      <h1>Task Kanban</h1>
+      <InputField todo={todo} setTodo={setTodo} handleAdd={handleAdd} />
+      <TodoList todos={todos} setTodos={setTodos} />
     </div>
   );
 }
