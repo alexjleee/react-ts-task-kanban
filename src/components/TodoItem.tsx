@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import '../styles/style.scss';
 import { Todo } from '../models/todo';
 import { FiEdit, FiCheckSquare, FiTrash2 } from 'react-icons/fi';
@@ -12,6 +12,12 @@ interface Props {
 const TodoItem: React.FC<Props> = ({ todo, todos, setTodos }) => {
   const [edit, setEdit] = useState<boolean>(false);
   const [editTodo, setEditTodo] = useState<string>(todo.todo);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [edit]);
 
   const handleDone = (id: number) => {
     setTodos(
@@ -34,7 +40,7 @@ const TodoItem: React.FC<Props> = ({ todo, todos, setTodos }) => {
   return (
     <form className='todo__item' onSubmit={(e) => handleEdit(e, todo.id)}>
       {edit ? (
-        <input type='text' className='todo__item--text' value={editTodo} onChange={(e) => setEditTodo(e.target.value)}/>
+        <input type='text' className='todo__item--text' ref={inputRef} value={editTodo} onChange={(e) => setEditTodo(e.target.value)}/>
       ) : todo.isDone ? (
         <s className='todo__item--text'>{todo.todo}</s>
       ) : (
