@@ -18,7 +18,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className='app-container'>
       <h1>Task Kanban</h1>
       <InputField todo={todo} setTodo={setTodo} handleAdd={handleAdd} />
       <TodoList todos={todos} setTodos={setTodos} />

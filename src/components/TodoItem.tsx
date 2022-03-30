@@ -38,20 +38,20 @@ const TodoItem: React.FC<Props> = ({ todo, todos, setTodos }) => {
   }
 
   return (
-    <form className='todo__item' onSubmit={(e) => handleEdit(e, todo.id)}>
+    <form className='edit-form' onSubmit={(e) => handleEdit(e, todo.id)}>
       {edit ? (
-        <input type='text' className='todo__item--text' ref={inputRef} value={editTodo} onChange={(e) => setEditTodo(e.target.value)}/>
+        <input type='text' className='textinput' ref={inputRef} value={editTodo} onChange={(e) => setEditTodo(e.target.value)}/>
       ) : todo.isDone ? (
-        <s className='todo__item--text'>{todo.todo}</s>
+        <s className='textcontent -completed'>{todo.todo}</s>
       ) : (
-        <span className='todo__item--text'>{todo.todo}</span>
+        <span className='textcontent'>{todo.todo}</span>
       )}
       <div>
-        <span className='icon' onClick={() => handleDone(todo.id)}>
+        <span className='iconbtn' onClick={() => handleDone(todo.id)}>
           <FiCheckSquare />
         </span>
         <span
-          className='icon'
+          className='iconbtn'
           onClick={() => {
             if (!edit && !todo.isDone) {
               setEdit(!edit);
@@ -60,7 +60,7 @@ const TodoItem: React.FC<Props> = ({ todo, todos, setTodos }) => {
         >
           <FiEdit />
         </span>
-        <span className='icon' onClick={() => handleDelete(todo.id)}>
+        <span className='iconbtn' onClick={() => handleDelete(todo.id)}>
           <FiTrash2 />
         </span>
       </div>

@@ -11,14 +11,15 @@ interface Props {
 
 const InputField: React.FC<Props> = ({ todo, setTodo, handleAdd }) => {
   return (
-    <form className='add_input' onSubmit={handleAdd}>
+    <form className='add-form' onSubmit={handleAdd}>
       <input
+        className='contentinput'
         type='text'
         placeholder='Add a task'
         value={todo}
         onChange={(e) => setTodo(e.target.value)}
       />
-      <button><FiPlus /></button>
+      <button className='submitbtn'><FiPlus /></button>
     </form>
   );
 };
