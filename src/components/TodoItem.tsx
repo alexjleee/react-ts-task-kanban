@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import '../styles/style.scss';
 import { Todo } from '../models/todo';
 import { FiX } from 'react-icons/fi';
+import { BsFillCheckSquareFill, BsSquare } from 'react-icons/bs';
 
 interface Props {
   todo: Todo;
@@ -13,10 +14,13 @@ const TodoItem: React.FC<Props> = ({ todo, todos, setTodos }) => {
   const [edit, setEdit] = useState<boolean>(false);
   const [editTodo, setEditTodo] = useState<string>(todo.todo);
 
-  const inputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    inputRef.current?.focus();
+    textareaRef.current?.focus();
+    if (textareaRef.current) {
+      textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
+    }
   }, [edit]);
 
   const handleDone = (id: number) => {
@@ -49,23 +53,28 @@ const TodoItem: React.FC<Props> = ({ todo, todos, setTodos }) => {
     <form className='edit-form' onSubmit={(e) => handleEdit(e, todo.id)}>
       <input
         type='checkbox'
-        className='invisiblechekbox'
+        className='customcheckbox'
         checked={todo.isDone}
         onChange={() => handleDone(todo.id)}
       />
-      <span className='checkmark'></span>
+      <span className='checkmark' onClick={() => handleDone(todo.id)}>
+        {todo.isDone ? <BsFillCheckSquareFill /> : <BsSquare />}
+      </span>
       {edit ? (
-        <input
-          type='text'
-          className='cteinput'
-          ref={inputRef}
-          value={editTodo}
-          onChange={(e) => setEditTodo(e.target.value)}
+        <textarea
+          className='ctetextarea'
+          ref={textareaRef}
+          onChange={(e) => {
+            e.target.style.height = e.target.scrollHeight + 'px';
+            setEditTodo(e.target.value);
+          }}
           onBlur={(e) => handleEdit(e, todo.id)}
-        />
+          value={editTodo}
+        >
+        </textarea>
       ) : (
         <span
-          className={'ctetext' + todo.isDone ? ' -completed' : ''}
+          className={`ctetext${todo.isDone ? ' -completed' : ''}`}
           onClick={handleClickToEdit}
         >
           {todo.todo}

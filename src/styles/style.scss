@@ -1,4 +1,133 @@
-.todos {
-  border: 1px solid black;
-  padding: 1rem;
+@import './variables';
+
+.u-container {
+  &.-m0 {
+    margin: 0;
+  }
+  &.-m1 {
+    margin: 1rem;
+  }
+}
+
+.add-form {
+  position: relative;
+  width: 100%;
+  height: 2.5rem;
+
+  > .contentinput {
+    position: absolute;
+    border: none;
+    border-radius: 0.5rem;
+    width: 100%;
+    height: 2.5rem;
+    padding-left: 1rem;
+    padding-right: 3rem;
+    background-color: $c-white;
+    font-size: inherit;
+    color: inherit;
+
+    &::placeholder {
+      color: $c-grey;
+    }
+  }
+
+  > .submitbtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: none;
+    font-size: inherit;
+    color: inherit;
+
+    &:hover {
+      color: $c-blue;
+    }
+  }
+
+  @media (min-width: $bp-tablet) {
+    width: 50%;
+  }
+
+  @media (min-width: $bp-pc) {
+    width: 33%;
+  }
+}
+
+.kanban {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  overflow-x: auto;
+  width: 100vw;
+  padding: 0.5rem;
+
+  > .column {
+    margin: 0.5rem;
+    width: calc(100vw - 4rem);
+
+    @media (min-width: $bp-tablet) {
+      width: calc(100% - 1rem);
+    }
+  }
+}
+
+.edit-form {
+  display: grid;
+  grid-template-columns: 0 1rem 1fr 1rem;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  border-radius: 0.5rem;
+  padding: 1rem 1rem 1rem 0;
+  background-color: $c-white;
+
+  > .customcheckbox {
+    appearance: none;
+    margin: 0;
+  }
+
+  > .checkmark {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+    color: $c-blue;
+
+    &.-high {
+      color: $c-red;
+    }
+
+    &.-medium {
+      color: $c-yellow;
+    }
+  }
+
+  > .ctetextarea {
+    overflow: hidden;
+    font-family: inherit;
+    font-size: 1rem;
+  }
+
+  > .ctetext {
+    word-break: break-all;
+    &.-completed {
+      text-decoration: line-through;
+      color: $c-grey;
+    }
+  }
+
+  > .deletebtn {
+    border: none;
+    width: 1rem;
+    height: 1rem;
+    padding: 0;
+    background: none;
+    color: $c-grey;
+
+    :hover {
+      color: $c-red;
+    }
+  }
 }

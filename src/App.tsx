@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import './styles/style.scss';
 import { Todo } from './models/todo';
-
 import InputField from './components/InputField';
 import TodoList from './components/TodoList';
 
@@ -18,7 +18,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className='app-container'>
+    <div className='u-container -m0'>
       <h1>Task Kanban</h1>
       <InputField todo={todo} setTodo={setTodo} handleAdd={handleAdd} />
       <TodoList todos={todos} setTodos={setTodos} />
