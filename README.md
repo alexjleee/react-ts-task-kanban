@@ -27,7 +27,11 @@ This simple task kanban is built with React + TypeScript.
 
 ![task-kanban-demo-3](https://user-images.githubusercontent.com/78324481/161268643-ed181477-392c-42f3-8688-346774bddb0c.gif)
 
-4. The tasks are stored in the localStorage
+4. Click to edit
+
+![task-kanban-demo-4](https://user-images.githubusercontent.com/78324481/161276675-4eec99e5-f838-45c2-80d6-53644367edb8.gif)
+
+5. The tasks are stored in the localStorage
 
 ## Available Scripts
 
