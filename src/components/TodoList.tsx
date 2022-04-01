@@ -1,4 +1,5 @@
 import React from 'react';
+import { Droppable } from 'react-beautiful-dnd';
 import '../styles/style.scss';
 import TodoItem from './TodoItem';
 import { Todo } from '../models/todo';
@@ -6,43 +7,96 @@ import { Todo } from '../models/todo';
 interface Props {
   todos: Todo[];
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+  inProgressTodos: Todo[];
+  setInProgressTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+  completedTodos: Todo[];
+  setCompletedTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 }
 
-const TodoList: React.FC<Props> = ({ todos, setTodos }: Props) => {
+const TodoList: React.FC<Props> = ({
+  todos,
+  setTodos,
+  inProgressTodos,
+  setInProgressTodos,
+  completedTodos,
+  setCompletedTodos,
+}: Props) => {
   return (
     <div className='kanban'>
       <div className='column'>
         <h3>Inbox</h3>
-        {todos.map((todo) => (
-          <TodoItem
-            todo={todo}
-            key={todo.id}
-            todos={todos}
-            setTodos={setTodos}
-          />
-        ))}
+        <Droppable droppableId='inbox-column'>
+          {(provided) => (
+            <div ref={provided.innerRef} {...provided.droppableProps}>
+              <ul className='todo-list -inbox'>
+                {todos.length === 0 ? (
+                  <p className='placeholder'>There are no tasks yet</p>
+                ) : (
+                  todos.map((todo, index) => (
+                    <TodoItem
+                      index={index}
+                      todo={todo}
+                      key={todo.id}
+                      todos={todos}
+                      setTodos={setTodos}
+                    />
+                  ))
+                )}
+                {provided.placeholder}
+              </ul>
+            </div>
+          )}
+        </Droppable>
       </div>
       <div className='column'>
-      <h3>In Progress</h3>
-      {todos.map((todo) => (
-          <TodoItem
-            todo={todo}
-            key={todo.id}
-            todos={todos}
-            setTodos={setTodos}
-          />
-        ))}
+        <h3>In Progress</h3>
+        <Droppable droppableId='inprogress-column'>
+          {(provided) => (
+            <div ref={provided.innerRef} {...provided.droppableProps}>
+              <ul className='todo-list -inprogress'>
+                {inProgressTodos.length === 0 ? (
+                  <p className='placeholder'>There are no tasks yet</p>
+                ) : (
+                  inProgressTodos.map((todo, index) => (
+                    <TodoItem
+                      index={index}
+                      todo={todo}
+                      key={todo.id}
+                      todos={inProgressTodos}
+                      setTodos={setInProgressTodos}
+                    />
+                  ))
+                )}
+                {provided.placeholder}
+              </ul>
+            </div>
+          )}
+        </Droppable>
       </div>
       <div className='column'>
-      <h3>Completed</h3>
-      {todos.map((todo) => (
-          <TodoItem
-            todo={todo}
-            key={todo.id}
-            todos={todos}
-            setTodos={setTodos}
-          />
-        ))}
+        <h3>Completed</h3>
+        <Droppable droppableId='completed-column'>
+          {(provided) => (
+            <div ref={provided.innerRef} {...provided.droppableProps}>
+              <ul className='todo-list -completed'>
+                {completedTodos.length === 0 ? (
+                  <p className='placeholder'>There are no tasks yet</p>
+                ) : (
+                  completedTodos.map((todo, index) => (
+                    <TodoItem
+                      index={index}
+                      todo={todo}
+                      key={todo.id}
+                      todos={completedTodos}
+                      setTodos={setCompletedTodos}
+                    />
+                  ))
+                )}
+                {provided.placeholder}
+              </ul>
+            </div>
+          )}
+        </Droppable>
       </div>
     </div>
   );

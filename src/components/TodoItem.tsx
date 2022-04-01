@@ -3,14 +3,16 @@ import '../styles/style.scss';
 import { Todo } from '../models/todo';
 import { FiX } from 'react-icons/fi';
 import { BsFillCheckSquareFill, BsSquare } from 'react-icons/bs';
+import { Draggable } from 'react-beautiful-dnd';
 
 interface Props {
+  index: number;
   todo: Todo;
   todos: Todo[];
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 }
 
-const TodoItem: React.FC<Props> = ({ todo, todos, setTodos }) => {
+const TodoItem: React.FC<Props> = ({ index, todo, todos, setTodos }) => {
   const [edit, setEdit] = useState<boolean>(false);
   const [editTodo, setEditTodo] = useState<string>(todo.todo);
 
@@ -19,7 +21,8 @@ const TodoItem: React.FC<Props> = ({ todo, todos, setTodos }) => {
   useEffect(() => {
     textareaRef.current?.focus();
     if (textareaRef.current) {
-      textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
+      textareaRef.current.style.height =
+        textareaRef.current.scrollHeight + 'px';
     }
   }, [edit]);
 
@@ -50,44 +53,54 @@ const TodoItem: React.FC<Props> = ({ todo, todos, setTodos }) => {
   };
 
   return (
-    <form className='edit-form' onSubmit={(e) => handleEdit(e, todo.id)}>
-      <input
-        type='checkbox'
-        className='customcheckbox'
-        checked={todo.isDone}
-        onChange={() => handleDone(todo.id)}
-      />
-      <span className='checkmark' onClick={() => handleDone(todo.id)}>
-        {todo.isDone ? <BsFillCheckSquareFill /> : <BsSquare />}
-      </span>
-      {edit ? (
-        <textarea
-          className='ctetextarea'
-          ref={textareaRef}
-          onChange={(e) => {
-            e.target.style.height = e.target.scrollHeight + 'px';
-            setEditTodo(e.target.value);
-          }}
-          onBlur={(e) => handleEdit(e, todo.id)}
-          value={editTodo}
+    <Draggable draggableId={todo.id.toString()} index={index}>
+      {(provided) => (
+        <li
+          className='todo-item'
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
         >
-        </textarea>
-      ) : (
-        <span
-          className={`ctetext${todo.isDone ? ' -completed' : ''}`}
-          onClick={handleClickToEdit}
-        >
-          {todo.todo}
-        </span>
+          <form className='edit-form' onSubmit={(e) => handleEdit(e, todo.id)}>
+            <input
+              type='checkbox'
+              className='customcheckbox'
+              checked={todo.isDone}
+              onChange={() => handleDone(todo.id)}
+            />
+            <span className='checkmark' onClick={() => handleDone(todo.id)}>
+              {todo.isDone ? <BsFillCheckSquareFill /> : <BsSquare />}
+            </span>
+            {edit ? (
+              <textarea
+                className='ctetextarea'
+                ref={textareaRef}
+                onChange={(e) => {
+                  e.target.style.height = e.target.scrollHeight + 'px';
+                  setEditTodo(e.target.value);
+                }}
+                onBlur={(e) => handleEdit(e, todo.id)}
+                value={editTodo}
+              ></textarea>
+            ) : (
+              <span
+                className={`ctetext${todo.isDone ? ' -completed' : ''}`}
+                onClick={handleClickToEdit}
+              >
+                {todo.todo}
+              </span>
+            )}
+            <button
+              type='button'
+              className='deletebtn'
+              onClick={() => handleDelete(todo.id)}
+            >
+              <FiX />
+            </button>
+          </form>
+        </li>
       )}
-      <button
-        type='button'
-        className='deletebtn'
-        onClick={() => handleDelete(todo.id)}
-      >
-        <FiX />
-      </button>
-    </form>
+    </Draggable>
   );
 };
 
