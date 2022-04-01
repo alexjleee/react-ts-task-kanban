@@ -11,9 +11,9 @@ interface Props {
   todos: Todo[];
   inbox: Todo[];
   completed: Todo[];
-  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-  setInbox: React.Dispatch<React.SetStateAction<Todo[]>>;
-  setCompleted: React.Dispatch<React.SetStateAction<Todo[]>>;
+  setTodos: (s: Todo[]) => void;
+  setInbox: (s: Todo[]) => void;
+  setCompleted: (s: Todo[]) => void;
 }
 
 const TodoItem: React.FC<Props> = ({ index, todo, todos, setTodos, inbox, completed, setInbox, setCompleted }) => {

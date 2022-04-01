@@ -6,11 +6,11 @@ import { Todo } from '../models/todo';
 
 interface Props {
   todos: Todo[];
-  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+  setTodos: (s: Todo[]) => void;
   inProgressTodos: Todo[];
-  setInProgressTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+  setInProgressTodos: (s: Todo[]) => void;
   completedTodos: Todo[];
-  setCompletedTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+  setCompletedTodos: (s: Todo[]) => void;
 }
 
 const TodoList: React.FC<Props> = ({

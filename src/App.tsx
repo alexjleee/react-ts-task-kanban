@@ -3,14 +3,16 @@ import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { nanoid } from 'nanoid';
 import './styles/style.scss';
 import { Todo } from './models/todo';
+import { useLocalStorage } from './hooks/useLocalStorage';
 import InputField from './components/InputField';
 import TodoList from './components/TodoList';
 
 const App: React.FC = () => {
   const [todo, setTodo] = useState<string>('');
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [inProgressTodos, setInProgressTodos] = useState<Todo[]>([]);
-  const [completedTodos, setCompletedTodos] = useState<Todo[]>([]);
+  const [todos, setTodos] = useLocalStorage<Todo[]>('todos', []);
+  const [inProgressTodos, setInProgressTodos] = useLocalStorage<Todo[]>('inprogress', []);
+  const [completedTodos, setCompletedTodos] = useLocalStorage<Todo[]>('completed', []);
+
 
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
