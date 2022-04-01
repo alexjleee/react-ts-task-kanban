@@ -1,9 +1,9 @@
-# React + TypeScript Todo
+# React + TypeScript Task Kanban
 
 This simple task kanban is built with React + TypeScript.
 
 ## Demo Link
-[codesandbox](https://codesandbox.io/s/react-ts-todo-khkflx)
+[codesandbox](https://codesandbox.io/s/react-ts-task-kanban-pdrlxy)
 
 ## Features
 
