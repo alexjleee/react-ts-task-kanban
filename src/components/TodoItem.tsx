@@ -9,10 +9,14 @@ interface Props {
   index: number;
   todo: Todo;
   todos: Todo[];
+  inbox: Todo[];
+  completed: Todo[];
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+  setInbox: React.Dispatch<React.SetStateAction<Todo[]>>;
+  setCompleted: React.Dispatch<React.SetStateAction<Todo[]>>;
 }
 
-const TodoItem: React.FC<Props> = ({ index, todo, todos, setTodos }) => {
+const TodoItem: React.FC<Props> = ({ index, todo, todos, setTodos, inbox, completed, setInbox, setCompleted }) => {
   const [edit, setEdit] = useState<boolean>(false);
   const [editTodo, setEditTodo] = useState<string>(todo.todo);
 
@@ -27,11 +31,17 @@ const TodoItem: React.FC<Props> = ({ index, todo, todos, setTodos }) => {
   }, [edit]);
 
   const handleDone = (id: string) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
-      )
-    );
+    if (todo.isDone) {
+      setTodos(
+        todos.filter((todo) => todo.id !== id)
+      );
+      setInbox([...inbox, {...todo, isDone: false}]);
+    } else {
+      setTodos(
+        todos.filter((todo) => todo.id !== id)
+      );
+      setCompleted([...completed, {...todo, isDone: true}]);
+    }
   };
 
   const handleDelete = (id: string) => {

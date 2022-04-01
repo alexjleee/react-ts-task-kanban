@@ -42,11 +42,11 @@ const App: React.FC = () => {
     }
 
     if (destination.droppableId === 'inbox-column') {
-      inbox.splice(destination.index, 0, add);
+      inbox.splice(destination.index, 0, {...add, isDone: false});
     } else if (destination.droppableId === 'inprogress-column') {
-      inprogress.splice(destination.index, 0, add);
+      inprogress.splice(destination.index, 0, {...add, isDone: false});
     } else {
-      completed.splice(destination.index, 0, add);
+      completed.splice(destination.index, 0, {...add, isDone: true});
     }
 
     setTodos(inbox);
