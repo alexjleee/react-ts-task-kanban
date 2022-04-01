@@ -2,17 +2,23 @@ import React from 'react';
 import '../styles/style.scss';
 import { FiPlus } from 'react-icons/fi';
 
-
 interface Props {
   todo: string;
   setTodo: React.Dispatch<React.SetStateAction<string>>;
+  setPriority: React.Dispatch<React.SetStateAction<string>>;
   handleAdd: (e: React.FormEvent) => void;
 }
 
-const InputField: React.FC<Props> = ({ todo, setTodo, handleAdd }) => {
+const InputField: React.FC<Props> = ({ todo, setTodo, setPriority, handleAdd }) => {
   return (
     <div className='u-container -m1'>
       <form className='add-form' onSubmit={handleAdd}>
+        <select className='priorityselect' onChange={(e) => setPriority(e.target.value)}>
+          <option selected disabled value='low'>Select priority</option>
+          <option value='high'>High</option>
+          <option value='medium'>Mediumm</option>
+          <option value='low'>Low</option>
+        </select>
         <input
           className='contentinput'
           type='text'

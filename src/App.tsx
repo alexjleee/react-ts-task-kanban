@@ -9,6 +9,7 @@ import TodoList from './components/TodoList';
 
 const App: React.FC = () => {
   const [todo, setTodo] = useState<string>('');
+  const [priority, setPriority] = useState<string>('low');
   const [todos, setTodos] = useLocalStorage<Todo[]>('todos', []);
   const [inProgressTodos, setInProgressTodos] = useLocalStorage<Todo[]>('inprogress', []);
   const [completedTodos, setCompletedTodos] = useLocalStorage<Todo[]>('completed', []);
@@ -17,7 +18,7 @@ const App: React.FC = () => {
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
     if (todo) {
-      setTodos([...todos, { id: nanoid(), todo, isDone: false }]);
+      setTodos([...todos, { id: nanoid(), todo, isDone: false, priority}]);
       setTodo('');
     }
   };
@@ -61,7 +62,7 @@ const App: React.FC = () => {
       <div className='app'>
         <div className='u-container -m0'>
           <h1>Task Kanban</h1>
-          <InputField todo={todo} setTodo={setTodo} handleAdd={handleAdd} />
+          <InputField todo={todo} setTodo={setTodo} setPriority={setPriority} handleAdd={handleAdd} />
           <TodoList
             todos={todos}
             setTodos={setTodos}

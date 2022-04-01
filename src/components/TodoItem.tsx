@@ -78,7 +78,7 @@ const TodoItem: React.FC<Props> = ({ index, todo, todos, setTodos, inbox, comple
               checked={todo.isDone}
               onChange={() => handleDone(todo.id)}
             />
-            <span className='checkmark' onClick={() => handleDone(todo.id)}>
+            <span className={`checkmark -${todo.priority}`} onClick={() => handleDone(todo.id)}>
               {todo.isDone ? <BsFillCheckSquareFill /> : <BsSquare />}
             </span>
             {edit ? (
