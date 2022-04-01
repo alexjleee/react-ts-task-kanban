@@ -13,8 +13,12 @@ const InputField: React.FC<Props> = ({ todo, setTodo, setPriority, handleAdd }) 
   return (
     <div className='u-container -m1'>
       <form className='add-form' onSubmit={handleAdd}>
-        <select className='priorityselect' onChange={(e) => setPriority(e.target.value)}>
-          <option selected disabled value='low'>Select priority</option>
+        <select 
+          className='priorityselect'
+          defaultValue='low'
+          onChange={(e) => setPriority(e.target.value)}
+        >
+          <option disabled value='low'>Select priority</option>
           <option value='high'>High</option>
           <option value='medium'>Mediumm</option>
           <option value='low'>Low</option>
