@@ -23,7 +23,7 @@ const TodoItem: React.FC<Props> = ({ todo, todos, setTodos }) => {
     }
   }, [edit]);
 
-  const handleDone = (id: number) => {
+  const handleDone = (id: string) => {
     setTodos(
       todos.map((todo) =>
         todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
@@ -31,11 +31,11 @@ const TodoItem: React.FC<Props> = ({ todo, todos, setTodos }) => {
     );
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
-  const handleEdit = (e: React.FormEvent, id: number) => {
+  const handleEdit = (e: React.FormEvent, id: string) => {
     e.preventDefault();
     setTodos(
       todos.map((todo) => (todo.id === id ? { ...todo, todo: editTodo } : todo))

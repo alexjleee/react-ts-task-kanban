@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { nanoid } from 'nanoid';
 import './styles/style.scss';
 import { Todo } from './models/todo';
 import InputField from './components/InputField';
@@ -12,7 +13,7 @@ const App: React.FC = () => {
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
     if (todo) {
-      setTodos([...todos, {id: Date.now(), todo, isDone: false}]);
+      setTodos([...todos, {id: nanoid(), todo, isDone: false}]);
       setTodo('');
     }
   }
