@@ -20,7 +20,7 @@ const InputField: React.FC<Props> = ({ todo, setTodo, setPriority, handleAdd }) 
         >
           <option disabled value='low'>Select priority</option>
           <option value='high'>High</option>
-          <option value='medium'>Mediumm</option>
+          <option value='medium'>Medium</option>
           <option value='low'>Low</option>
         </select>
         <input
