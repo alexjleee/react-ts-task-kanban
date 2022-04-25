@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import '../styles/style.scss';
-import { Todo } from '../models/todo';
+import { Todo } from '../types';
 import { FiX } from 'react-icons/fi';
 import { BsFillCheckSquareFill, BsSquare } from 'react-icons/bs';
 import { Draggable } from 'react-beautiful-dnd';
@@ -16,7 +16,16 @@ interface Props {
   setCompleted: (s: Todo[]) => void;
 }
 
-const TodoItem: React.FC<Props> = ({ index, todo, todos, setTodos, inbox, completed, setInbox, setCompleted }) => {
+const TodoItem: React.FC<Props> = ({
+  index,
+  todo,
+  todos,
+  setTodos,
+  inbox,
+  completed,
+  setInbox,
+  setCompleted,
+}) => {
   const [edit, setEdit] = useState<boolean>(false);
   const [editTodo, setEditTodo] = useState<string>(todo.todo);
 
@@ -32,15 +41,11 @@ const TodoItem: React.FC<Props> = ({ index, todo, todos, setTodos, inbox, comple
 
   const handleDone = (id: string) => {
     if (todo.isDone) {
-      setTodos(
-        todos.filter((todo) => todo.id !== id)
-      );
-      setInbox([...inbox, {...todo, isDone: false}]);
+      setTodos(todos.filter((todo) => todo.id !== id));
+      setInbox([...inbox, { ...todo, isDone: false }]);
     } else {
-      setTodos(
-        todos.filter((todo) => todo.id !== id)
-      );
-      setCompleted([...completed, {...todo, isDone: true}]);
+      setTodos(todos.filter((todo) => todo.id !== id));
+      setCompleted([...completed, { ...todo, isDone: true }]);
     }
   };
 
@@ -78,7 +83,10 @@ const TodoItem: React.FC<Props> = ({ index, todo, todos, setTodos, inbox, comple
               checked={todo.isDone}
               onChange={() => handleDone(todo.id)}
             />
-            <span className={`checkmark -${todo.priority}`} onClick={() => handleDone(todo.id)}>
+            <span
+              className={`checkmark -${todo.priority}`}
+              onClick={() => handleDone(todo.id)}
+            >
               {todo.isDone ? <BsFillCheckSquareFill /> : <BsSquare />}
             </span>
             {edit ? (
